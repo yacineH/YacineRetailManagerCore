@@ -17,12 +17,12 @@ namespace TRMDesktopUI.ViewModels
 {
     public class SalesViewModel :Screen
     {
-        private IProductEndPoint _productEndPoint;
-        private IConfigHelper _configHelper;
-        private ISaleEndPoint _saleEndPoint;
-        private IMapper _mapper;
-        private StatusInfoViewModel _status;
-        private IWindowManager _window; //pour message box (caliburnMicro)
+        private readonly IProductEndPoint _productEndPoint;
+        private readonly IConfigHelper _configHelper;
+        private readonly ISaleEndPoint _saleEndPoint;
+        private readonly IMapper _mapper;
+        private readonly StatusInfoViewModel _status;
+        private readonly IWindowManager _window; //pour message box (caliburnMicro)
 
         public  SalesViewModel(IProductEndPoint productEndPoint,
                                IConfigHelper configHelper,
@@ -34,6 +34,7 @@ namespace TRMDesktopUI.ViewModels
             _saleEndPoint = saleEndPoint;
             _mapper = mapper;
             _status = status;
+            _window = window;
         }
           
 

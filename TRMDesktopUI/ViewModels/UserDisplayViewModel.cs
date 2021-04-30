@@ -14,9 +14,9 @@ namespace TRMDesktopUI.ViewModels
 {
     public class UserDisplayViewModel:Screen
     {
-        private StatusInfoViewModel _status;
-        private IWindowManager _window;
-        private IUserEndPoint _userEndPoint;
+        private readonly StatusInfoViewModel _status;
+        private readonly IWindowManager _window;
+        private readonly IUserEndPoint _userEndPoint;
         private BindingList<UserModel> _users;
 
         public BindingList<UserModel> Users

@@ -10,7 +10,7 @@ begin
     set nocount on;
 
 	insert into dbo.Sale(CashierId,SaleDate,SubTotal,Tax,Total)
-	values(@CashierId,@SaleDate,@SubTotal,@Tax,@Total);
+	values(@CashierId,@SaleDate,@SubTotal,@Tax,@Total)
 
 	--return le id de l'objet inserer
 	select @Id = Scope_Identity(); 
