@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,18 @@ namespace TRMApi.Controllers
     [Authorize]
     public class InventoryController : ControllerBase
     {
+        private readonly IConfiguration _config;
+
+        public InventoryController(IConfiguration config)
+        {
+            _config = config;
+        }
+
         //manager ou bien admin
         [Authorize(Roles = "Manager,Admin")]
         public List<InventoryModel> Get()
         {
-            InventoryData inventory = new InventoryData();
+            InventoryData inventory = new InventoryData(_config);
 
             return inventory.GetInventory();
         }
@@ -31,7 +39,7 @@ namespace TRMApi.Controllers
         [Authorize(Roles = "Admin")]
         public void Post(InventoryModel inventory)
         {
-            InventoryData item = new InventoryData();
+            InventoryData item = new InventoryData(_config);
             item.SaveInventoryRecord(inventory);
         }
     }

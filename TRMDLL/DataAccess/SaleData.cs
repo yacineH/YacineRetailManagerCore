@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,12 +11,18 @@ namespace TRMDLL.DataAccess
 {
     public class SaleData
     {
+        private readonly IConfiguration _config;
+
+        public SaleData(IConfiguration config)
+        {
+            _config = config;
+        }
         public void SaveSale(SaleModel saleInfo, string cashierId)
         {
 
             //start filling in the sale detail models we will save to the database
             List<SaleDetailDBModel> details = new List<SaleDetailDBModel>();
-            ProductData product = new ProductData();
+            ProductData product = new ProductData(_config);
             var taxRate = ConfigHelper.GetTaxRate() / 100;
 
             foreach (var item in saleInfo.SaleDetails)
@@ -72,7 +79,7 @@ namespace TRMDLL.DataAccess
 
             #region Rapped in transaction (transaction in C#)(faire attention a la non fermeture des transactions problemes de performance)
 
-            using (SQLDataAccess sql = new SQLDataAccess())
+            using (SQLDataAccess sql = new SQLDataAccess(_config))
             {
                 try
                 {
@@ -107,7 +114,7 @@ namespace TRMDLL.DataAccess
 
         public List<SaleReportModel> GetSaleReport()
         {
-            SQLDataAccess sql = new SQLDataAccess();
+            SQLDataAccess sql = new SQLDataAccess(_config);
 
             var output = sql.LoadData<SaleReportModel, dynamic>("dbo.spSale_SaleReport", new { }, "TRMDataBase");
 
